@@ -1,5 +1,6 @@
 package org.example.tienda_online.Controller;
 
+import jakarta.validation.Valid;
 import org.example.tienda_online.Dto.Producto;
 import org.example.tienda_online.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ProductoController {
 
     // Crear usuario
     @PostMapping
-    public ResponseEntity<String> guardarProducto(@RequestBody Producto producto) {
+    public ResponseEntity<String> guardarProducto(@RequestBody @Valid Producto producto) {
         Producto productoGuardar = productoService.guardarProducto(producto);
         if (productoGuardar != null) {
             return ResponseEntity.ok("Producto guardado con éxito");
