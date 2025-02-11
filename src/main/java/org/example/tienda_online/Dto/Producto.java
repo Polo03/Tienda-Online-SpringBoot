@@ -1,10 +1,7 @@
 package org.example.tienda_online.Dto;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -29,12 +26,13 @@ public class Producto {
     private String descripcion;
 
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
-    @Pattern(regexp = "^\\d+(\\.\\d{1,2})?$", message = "El precio del producto no puede tener letras")
+    @Digits(integer = 10, fraction = 2) // Permite hasta 10 dígitos enteros y 2 decimales
     @NotNull(message = "El precio del producto no puede ser nulo")
-    private Float precio;
+    private BigDecimal precio;
 
     @Column(name = "stock")
-    @Pattern(regexp = "^\\d{1,3}$", message = "El stock del producto no puede tener letras")
+    @Min(0) // Asegura que el valor de stock sea mayor o igual a 0
+    @Max(100) // Asegura que el valor de stock no sea mayor a 1000
     @NotNull(message = "El stock del producto no puede ser nulo")
     private Integer stock;
 
@@ -62,11 +60,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Float getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

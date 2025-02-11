@@ -21,14 +21,14 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    // Obtener todos los usuarios
+    // Obtener todos los productos
     @GetMapping
     public ResponseEntity<List<Producto>> obtenerTodosProductos() {
         List<Producto> productos = productoService.obtenerTodosProductos();
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }
 
-    //Obtener usuario por ID
+    //Obtener producto por ID
     @GetMapping("/{id}")
     @Cacheable
     public ResponseEntity<Optional<Producto>> obtenerProductoPorId(@PathVariable Integer id) {
@@ -42,7 +42,7 @@ public class ProductoController {
 
     }
 
-    // Crear usuario
+    // Crear producto
     @PostMapping
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Producto producto) {
         Producto productoGuardar = productoService.guardarProducto(producto);
@@ -53,9 +53,9 @@ public class ProductoController {
         }
     }
 
-    //Actualizar usuario
+    //Actualizar producto
     @PutMapping
-    public ResponseEntity<String> actualizarProducto(@RequestBody Producto nuevoProducto) {
+    public ResponseEntity<String> actualizarProducto(@RequestBody @Valid Producto nuevoProducto) {
         boolean actualizado = productoService.actualizarProducto(nuevoProducto);
         if (actualizado) {
             return ResponseEntity.ok("Producto actualizado con éxito");
@@ -64,7 +64,7 @@ public class ProductoController {
         }
     }
 
-    //Eliminar un usuario por ID
+    //Eliminar un producto por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarProducto(@PathVariable int id) {
         boolean eliminado = productoService.eliminarProducto(id);
