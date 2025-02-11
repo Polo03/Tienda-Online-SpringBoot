@@ -35,6 +35,15 @@ CREATE TABLE Compra (
     FOREIGN KEY (cliente_id) REFERENCES Cliente(id) ON DELETE CASCADE
 );
 
+CREATE TABLE Devoluciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    stock INT NOT NULL,
+
+    -- Definir claves foráneas
+    FOREIGN KEY (producto_id) REFERENCES Producto(id) ON DELETE CASCADE
+);
+
 -- Insertar clientes
 INSERT INTO Cliente (nombre, apellido, nickname, password, telefono, domicilio) VALUES
 ('Carlos', 'González', 'carlosg', 'pass123', '123456789', 'Calle 123'),
