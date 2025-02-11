@@ -1,6 +1,6 @@
 -- Crear base de datos (opcional)
 CREATE DATABASE IF NOT EXISTS mi_tienda_springboot;
-USE mi_tienda;
+USE mi_tienda_springboot;
 
 -- Tabla Cliente
 CREATE TABLE Cliente (
@@ -42,7 +42,7 @@ INSERT INTO Cliente (nombre, apellido, nickname, password, telefono, domicilio) 
 ('Luis', 'Martínez', 'luism', 'pass789', '555555555', 'Boulevard 789');
 
 -- Insertar productos
-INSERT INTO Producto (nombre, descripcion, precio, imagen) VALUES
+INSERT INTO Producto (nombre, descripcion, precio, stock) VALUES
                                                                ( 'Laptop', 'Laptop de alto rendimiento', 1500.00, 50),
                                                                ( 'Teléfono', 'Smartphone de última generación', 800.00, 50),
                                                                ( 'Tablet', 'Tablet con pantalla HD', 300.00, 50),

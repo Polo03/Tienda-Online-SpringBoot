@@ -21,9 +21,8 @@ public class Producto {
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
-    @Lob
-    @Column(name = "imagen")
-    private String imagen;
+    @Column(name = "stock")
+    private Integer stock;
 
     public Integer getId() {
         return id;
@@ -57,12 +56,12 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getImagen() {
-        return imagen;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
 }
