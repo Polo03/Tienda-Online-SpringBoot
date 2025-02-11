@@ -3,15 +3,21 @@ package org.example.tienda_online.Dto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "compra")
 public class Compra {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
@@ -22,11 +28,12 @@ public class Compra {
 
     @Lob
     @Column(name = "fecha_compra", nullable = false)
+    @Value("#{T(java.time.LocalDateTime).now()}")
     private String fechaCompra;
 
     @Lob
-    @Column(name = "cantidades", nullable = false)
-    private String cantidades;
+    @Column(name = "stock", nullable = false)
+    private String stock;
 
     @Column(name = "precio_compra", nullable = false)
     private Integer precioCompra;
@@ -63,12 +70,12 @@ public class Compra {
         this.fechaCompra = fechaCompra;
     }
 
-    public String getCantidades() {
-        return cantidades;
+    public String getStock() {
+        return stock;
     }
 
-    public void setCantidades(String cantidades) {
-        this.cantidades = cantidades;
+    public void setStock(String stock) {
+        this.stock = stock;
     }
 
     public Integer getPrecioCompra() {
