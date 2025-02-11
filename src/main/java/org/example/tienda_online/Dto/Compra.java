@@ -1,6 +1,8 @@
 package org.example.tienda_online.Dto;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,19 +22,23 @@ public class Compra {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id", nullable = false)
+    @NotNull(message = "EL cliente no puede ser nulo.")
     private Cliente cliente;
 
     @Lob
     @Column(name = "productos", nullable = false)
+    @NotNull(message = "No puedes comprar sin productos, es decir, no puede ser nulo")
+    @NotBlank(message = "Los prodcutos no pueden estar en blanco")
     private String productos;
 
     @Lob
     @Column(name = "fecha_compra", nullable = false)
-    @Value("#{T(java.time.LocalDateTime).now()}")
     private String fechaCompra;
 
     @Lob
     @Column(name = "stock", nullable = false)
+    @NotNull(message = "No puedes comprar sin stock, es decir, no puede ser nulo")
+    @NotBlank(message = "El stock no pueden estar en blanco")
     private String stock;
 
     @Column(name = "precio_compra", nullable = false)

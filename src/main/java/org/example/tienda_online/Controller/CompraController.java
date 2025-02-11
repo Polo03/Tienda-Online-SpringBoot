@@ -49,7 +49,6 @@ public class CompraController {
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Compra compra) {
         if(compraService.comprobarStock(compra)) {
             compraService.quitarStock(compra);
-            compraService.damePrecioCompra(compra);
             Compra compraGuardar = compraService.guardarCompra(compra);
             if (compraGuardar != null)
                 return ResponseEntity.ok("Compra guardado con éxito");
