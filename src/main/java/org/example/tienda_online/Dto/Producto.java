@@ -30,9 +30,16 @@ public class Producto {
     @NotNull(message = "El precio del producto no puede ser nulo")
     private BigDecimal precio;
 
+    @Lob
+    @Column(name = "tipo_producto")
+    @NotNull(message = "El tipo del producto no puede ser nulo")
+    @NotBlank(message = "El tipo del producto no puede estar en blanco")
+    @Pattern(regexp = "^(oferta|estándar|calidad)$", message = "El tipo del producto solo puede ser oferta/estandar/calidad")
+    private String tipoProducto;
+
     @Column(name = "stock")
-    @Min(0) // Asegura que el valor de stock sea mayor o igual a 0
-    @Max(100) // Asegura que el valor de stock no sea mayor a 1000
+    @Min(1) // Asegura que el valor de stock sea mayor o igual a 0
+    @Max(100) // Asegura que el valor de stock no sea mayor a 100
     @NotNull(message = "El stock del producto no puede ser nulo")
     private Integer stock;
 
@@ -66,6 +73,14 @@ public class Producto {
 
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
+    }
+
+    public String getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     public Integer getStock() {
