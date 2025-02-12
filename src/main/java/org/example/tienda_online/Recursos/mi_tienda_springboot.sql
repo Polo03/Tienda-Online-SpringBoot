@@ -19,6 +19,7 @@ CREATE TABLE Producto (
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2) NOT NULL,
+    tipo_producto VARCHAR(100) NOT NULL DEFAULT 'estandar',
     stock INT
 );
 
@@ -51,15 +52,15 @@ INSERT INTO Cliente (nombre, apellido, nickname, password, telefono, domicilio) 
 ('Luis', 'Martínez', 'luism', 'pass789', '555555555', 'Boulevard 789');
 
 -- Insertar productos
-INSERT INTO Producto (nombre, descripcion, precio, stock) VALUES
-                                                               ( 'Laptop', 'Laptop de alto rendimiento', 1500.00, 50),
-                                                               ( 'Teléfono', 'Smartphone de última generación', 800.00, 50),
-                                                               ( 'Tablet', 'Tablet con pantalla HD', 300.00, 50),
+INSERT INTO Producto (nombre, descripcion, precio, tipo_producto, stock) VALUES
+                                                               ( 'Laptop', 'Laptop de alto rendimiento', 1500.00, "calidad", 50),
+                                                               ( 'Teléfono', 'Smartphone de última generación', 800.00, "calidad", 50),
+                                                               ( 'Tablet', 'Tablet con pantalla HD', 300.00,"calidad", 50),
                                                                ( 'Auriculares', 'Auriculares inalámbricos', 100.00, 50),
-                                                               ( 'Cámara', 'Cámara profesional', 1200.00, 50),
-                                                               ( 'Monitor', 'Monitor 4K', 400.00, 50),
-                                                               ( 'Teclado', 'Teclado mecánico', 80.00, 50),
-                                                               ( 'Mouse', 'Mouse óptico', 25.00, 50),
-                                                               ( 'Impresora', 'Impresora multifuncional', 200.00, 50),
-                                                               ( 'Parlantes', 'Parlantes Bluetooth', 150.00, 50);
+                                                               ( 'Cámara', 'Cámara profesional', 1200.00, "calidad", 50),
+                                                               ( 'Monitor', 'Monitor 4K', 400.00, "calidad", 50),
+                                                               ( 'Teclado', 'Teclado mecánico', 80.00, "estandar" 50),
+                                                               ( 'Mouse', 'Mouse óptico', 10.00, "oferta" ,50),
+                                                               ( 'Impresora', 'Impresora multifuncional', 200.00, "calidad", 50),
+                                                               ( 'Parlantes', 'Parlantes Bluetooth', 150.00, "estandar" 50);
 
