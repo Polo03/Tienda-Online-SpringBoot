@@ -5,6 +5,7 @@ import org.example.tienda_online.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +26,17 @@ public class ProductoService {
     }
 
     //Guardar producto
-    public Producto guardarProducto(Producto usuario) {
-        Producto usuarioGuardar = productoRepository.save(usuario);
+    public Producto guardarProducto(Producto producto) {
+        producto.setTipoProducto(dameTipoProducto(producto));
+        Producto usuarioGuardar = productoRepository.save(producto);
         return usuarioGuardar;
     }
 
     //Actualizar producto
-    public boolean actualizarProducto(Producto nuevoUsuario) {
-        Optional<Producto> usuarioExistente = productoRepository.findById(nuevoUsuario.getId());
+    public boolean actualizarProducto(Producto nuevoProducto) {
+        Optional<Producto> usuarioExistente = productoRepository.findById(nuevoProducto.getId());
         if (usuarioExistente.isPresent()) {
-            productoRepository.save(nuevoUsuario);
+            productoRepository.save(nuevoProducto);
             return true;
         }
         return false;
@@ -47,6 +49,15 @@ public class ProductoService {
             return true;
         }
         return false;
+    }
+
+    public String dameTipoProducto(Producto producto) {
+        if(producto.getPrecio().compareTo(new BigDecimal(10)) < 0)
+            return "Oferta";
+        else if(producto.getPrecio().compareTo(new BigDecimal(200)) > 0)
+            return "Calidad";
+        else
+            return "Estandar";
     }
 
 }

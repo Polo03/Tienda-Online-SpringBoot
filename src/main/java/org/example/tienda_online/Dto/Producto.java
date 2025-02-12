@@ -1,5 +1,6 @@
 package org.example.tienda_online.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -32,9 +33,6 @@ public class Producto {
 
     @Lob
     @Column(name = "tipo_producto")
-    @NotNull(message = "El tipo del producto no puede ser nulo")
-    @NotBlank(message = "El tipo del producto no puede estar en blanco")
-    @Pattern(regexp = "^(oferta|estándar|calidad)$", message = "El tipo del producto solo puede ser oferta/estandar/calidad")
     private String tipoProducto;
 
     @Column(name = "stock")
