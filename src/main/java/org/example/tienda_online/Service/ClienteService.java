@@ -1,7 +1,6 @@
 package org.example.tienda_online.Service;
 
 import org.example.tienda_online.Dto.Cliente;
-import org.example.tienda_online.Dto.MoldeLogin;
 import org.example.tienda_online.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,11 +49,10 @@ public class ClienteService {
         return false;
     }
 
-    public boolean validarLogin(MoldeLogin moldeLogin){
-        Optional<Cliente> cliente = clienteRepository.findByNicknameAndPassword(moldeLogin.getNickname(), moldeLogin.getPassword());
-        if(cliente.isPresent()){
+    public boolean validarLogin(Cliente cliente){
+        Optional<Cliente> clienteValidar = clienteRepository.findByNicknameAndPassword(cliente.getNickname(), cliente.getPassword());
+        if(clienteValidar.isPresent())
             return true;
-        }
         return false;
     }
 
