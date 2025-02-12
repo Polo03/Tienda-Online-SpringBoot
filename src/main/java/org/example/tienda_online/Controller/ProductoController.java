@@ -45,23 +45,29 @@ public class ProductoController {
     // Crear producto
     @PostMapping
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Producto producto) {
-        Producto productoGuardar = productoService.guardarProducto(producto);
-        if (productoGuardar != null) {
-            return ResponseEntity.ok("Producto guardado con éxito");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no guardado");
-        }
+        if(!productoService.existeNombreProducto(producto)) {
+            Producto productoGuardar = productoService.guardarProducto(producto);
+            if (productoGuardar != null) {
+                return ResponseEntity.ok("Producto guardado con éxito");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no guardado");
+            }
+        }else
+            return ResponseEntity.ok("El nombre del producto ya existe");
     }
 
     //Actualizar producto
     @PutMapping
     public ResponseEntity<String> actualizarProducto(@RequestBody @Valid Producto nuevoProducto) {
-        boolean actualizado = productoService.actualizarProducto(nuevoProducto);
-        if (actualizado) {
-            return ResponseEntity.ok("Producto actualizado con éxito");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
-        }
+        if(!productoService.existeNombreProducto(nuevoProducto)) {
+            boolean actualizado = productoService.actualizarProducto(nuevoProducto);
+            if (actualizado) {
+                return ResponseEntity.ok("Producto actualizado con éxito");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+            }
+        }else
+            return ResponseEntity.ok("El nombre del producto ya existe");
     }
 
     //Eliminar un producto por ID

@@ -28,14 +28,15 @@ public class ProductoService {
     //Guardar producto
     public Producto guardarProducto(Producto producto) {
         producto.setTipoProducto(dameTipoProducto(producto));
-        Producto usuarioGuardar = productoRepository.save(producto);
-        return usuarioGuardar;
+        Producto productoGuardar = productoRepository.save(producto);
+        return productoGuardar;
     }
 
     //Actualizar producto
     public boolean actualizarProducto(Producto nuevoProducto) {
-        Optional<Producto> usuarioExistente = productoRepository.findById(nuevoProducto.getId());
-        if (usuarioExistente.isPresent()) {
+        nuevoProducto.setTipoProducto(dameTipoProducto(nuevoProducto));
+        Optional<Producto> productoExistente = productoRepository.findById(nuevoProducto.getId());
+        if (productoExistente.isPresent()) {
             productoRepository.save(nuevoProducto);
             return true;
         }
@@ -52,12 +53,21 @@ public class ProductoService {
     }
 
     public String dameTipoProducto(Producto producto) {
-        if(producto.getPrecio().compareTo(new BigDecimal(10)) < 0)
+        if(producto.getPrecio().compareTo(new BigDecimal(10)) <= 0)
             return "Oferta";
-        else if(producto.getPrecio().compareTo(new BigDecimal(200)) > 0)
+        else if(producto.getPrecio().compareTo(new BigDecimal(200)) >= 0)
             return "Calidad";
         else
             return "Estandar";
+    }
+
+    public boolean existeNombreProducto(Producto producto) {
+        List<String> nombreProductos = productoRepository.findAllNombresProducto(producto.getId());
+        for (String nombreProducto : nombreProductos) {
+            if (nombreProducto.equals(producto.getNombre()))
+                return true;
+        }
+        return false;
     }
 
 }
