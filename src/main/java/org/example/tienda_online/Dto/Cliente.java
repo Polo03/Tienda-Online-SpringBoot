@@ -1,6 +1,7 @@
 package org.example.tienda_online.Dto;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "cliente")
@@ -11,21 +12,39 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nombre", nullable = false, length = 50)
+    @NotNull(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "El nombre no puede estar en blanco")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", message = "El nombre solo puede contener letras y espacios")
+    @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres.")
     private String nombre;
 
     @Column(name = "apellido", nullable = false, length = 50)
+    @NotNull(message = "El apellido no puede ser nulo")
+    @NotBlank(message = "El apellido no puede estar en blanco")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", message = "El apellido solo puede contener letras y espacios")
+    @Size(max = 50, message = "El apellido no puede tener más de 50 caracteres.")
     private String apellido;
 
-    @Column(name = "nickname", nullable = false, length = 50)
+    @Column(name = "nickname", nullable = false, length = 50, unique = true)
+    @NotNull(message = "El nickname no puede ser nulo")
+    @NotBlank(message = "El nickname no puede estar en blanco")
+    @Size(max = 50, message = "El nickname no puede tener más de 50 caracteres.")
     private String nickname;
 
     @Column(name = "password", nullable = false)
+    @NotNull(message = "La contraseña no puede ser nula")
+    @NotBlank(message = "La contraseña no puede estar en blanco")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+            message = "La contraseña debe tener al menos una mayúscula, una minúscula y un número")
     private String password;
 
-    @Column(name = "telefono", length = 15)
+    @Column(name = "telefono", length = 9)
+    @Pattern(regexp = "^[69]\\d{8}$", message = "El teléfono debe tener 9 dígitos y empezar por 6 o 9")
     private String telefono;
 
     @Column(name = "domicilio", length = 100)
+    @Size(max = 100, message = "El domicilio no puede tener más de 100 caracteres.")
     private String domicilio;
 
     public Integer getId() {
@@ -83,5 +102,4 @@ public class Cliente {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
-
 }
