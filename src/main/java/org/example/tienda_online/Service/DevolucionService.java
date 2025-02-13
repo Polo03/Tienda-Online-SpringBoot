@@ -1,6 +1,8 @@
 package org.example.tienda_online.Service;
 
+import org.example.tienda_online.Dto.Compra;
 import org.example.tienda_online.Dto.Devolucion;
+import org.example.tienda_online.Dto.Producto;
 import org.example.tienda_online.Repository.DevolucionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ public class DevolucionService {
     @Autowired
     private DevolucionRepository devolucionRepository;
 
+    @Autowired
+    private CompraService compraService;
+
+    @Autowired
+    private ProductoService productoService;
+
     // Obtener todos los devoluciones
     public List<Devolucion> obtenerTodosDevoluciones() {
         return devolucionRepository.findAll();
@@ -25,16 +33,27 @@ public class DevolucionService {
     }
 
     //Guardar devolucion
-    public Devolucion guardarDevolucion(Devolucion usuario) {
-        Devolucion usuarioGuardar = devolucionRepository.save(usuario);
-        return usuarioGuardar;
+    public Devolucion guardarDevolucion(Devolucion devolucion) {
+        Optional<Compra> c = compraService.obtenerCompraByID(devolucion.getCompra().getId());
+        Optional<Producto> p = productoService.obtenerProductoByID(c.get().getProducto().getId());
+        Producto producto = p.get();
+        producto.setStock(producto.getStock()+c.get().getCantidad());
+        System.out.println(producto.toString());
+        productoService.actualizarProducto(producto);
+        if(c.get().getDevuelto().equals("No")){
+            c.get().setDevuelto("Si");
+            Devolucion devolucionGuardar = devolucionRepository.save(devolucion);
+            System.out.println(devolucionGuardar);
+            return devolucionGuardar;
+        }
+        return null;
     }
 
     //Actualizar devolucion
-    public boolean actualizarDevolucion(Devolucion nuevoUsuario) {
-        Optional<Devolucion> devolucionExistente = devolucionRepository.findById(nuevoUsuario.getId());
+    public boolean actualizarDevolucion(Devolucion nuevoDevolucion) {
+        Optional<Devolucion> devolucionExistente = devolucionRepository.findById(nuevoDevolucion.getId());
         if (devolucionExistente.isPresent()) {
-            devolucionRepository.save(nuevoUsuario);
+            devolucionRepository.save(nuevoDevolucion);
             return true;
         }
         return false;

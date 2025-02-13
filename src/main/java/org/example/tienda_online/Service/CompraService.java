@@ -35,6 +35,7 @@ public class CompraService {
         if(comprobarStock(compra)) {
             quitarStock(compra);
             compra.setFechaCompra(LocalDate.now()+"");
+            compra.setDevuelto("No");
             compra.setPrecioCompra(damePrecioCompra(compra));
             return compraRepository.save(compra);
         }
