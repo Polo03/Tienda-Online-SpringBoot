@@ -39,6 +39,9 @@ public class Compra {
     @Column(name = "precio_compra")
     private BigDecimal precioCompra;
 
+    @Column(name = "devuelto")
+    private String devuelto;
+
     public Integer getId() {
         return id;
     }
@@ -87,4 +90,11 @@ public class Compra {
         this.precioCompra = precioCompra;
     }
 
+    public String getDevuelto() {
+        return devuelto;
+    }
+
+    public void setDevuelto(String devuelto) {
+        this.devuelto = devuelto;
+    }
 }

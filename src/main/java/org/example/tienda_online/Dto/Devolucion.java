@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "devoluciones")
 public class Devolucion {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -17,10 +18,6 @@ public class Devolucion {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
-
-    @NotNull
-    @Column(name = "stock", nullable = false)
-    private Integer stock;
 
     public Integer getId() {
         return id;
@@ -36,14 +33,6 @@ public class Devolucion {
 
     public void setCompra(Compra compra) {
         this.compra = compra;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
 }

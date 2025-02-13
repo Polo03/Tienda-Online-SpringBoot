@@ -47,9 +47,9 @@ public class DevolucionController {
     public ResponseEntity<String> guardarDevolucion(@RequestBody @Valid Devolucion devolucion) {
         Devolucion devolucionGuardar = devolucionService.guardarDevolucion(devolucion);
         if (devolucionGuardar != null) {
-            return ResponseEntity.ok("Devolucion guardado con éxito");
+            return ResponseEntity.ok("Devolucion guardada con éxito");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Devolucion no guardado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Devolucion no guardada");
         }
     }
 
