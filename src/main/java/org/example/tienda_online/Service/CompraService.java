@@ -32,10 +32,13 @@ public class CompraService {
 
     //Guardar compra
     public Compra guardarCompra(Compra compra) {
-        compra.setFechaCompra(LocalDate.now()+"");
-        //compra.setPrecioCompra(damePrecioCompra(compra));
-        Compra compraGuardar = compraRepository.save(compra);
-        return compraGuardar;
+        if(comprobarStock(compra)) {
+            quitarStock(compra);
+            compra.setFechaCompra(LocalDate.now()+"");
+            compra.setPrecioCompra(damePrecioCompra(compra));
+            return compraRepository.save(compra);
+        }
+        return null;
     }
 
     //Actualizar compra
@@ -56,6 +59,24 @@ public class CompraService {
         }
         return false;
     }
+
+    public boolean comprobarStock(Compra compra) {
+        Optional<Producto> p = productoService.obtenerProductoByID(compra.getProducto().getId());
+        return compra.getCantidad() <= p.get().getStock();
+    }
+
+    public void quitarStock(Compra compra) {
+        Optional<Producto> p = productoService.obtenerProductoByID(compra.getProducto().getId());
+        Producto pGuardar = p.get();
+        pGuardar.setStock(pGuardar.getStock() - compra.getCantidad());
+        productoService.actualizarProducto(pGuardar);
+    }
+
+    public BigDecimal damePrecioCompra(Compra compra){
+        Optional<Producto> p = productoService.obtenerProductoByID(compra.getProducto().getId());
+        return p.get().getPrecio().multiply(BigDecimal.valueOf(compra.getCantidad()));
+    }
+
 
 
 }
