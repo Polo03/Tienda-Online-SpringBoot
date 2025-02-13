@@ -1,7 +1,7 @@
 package org.example.tienda_online.Service;
 
-import org.example.tienda_online.Dto.Devoluciones;
-import org.example.tienda_online.Repository.DevolucionesRepository;
+import org.example.tienda_online.Dto.Devolucion;
+import org.example.tienda_online.Repository.DevolucionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,27 +12,27 @@ import java.util.Optional;
 public class DevolucionService {
 
     @Autowired
-    private DevolucionesRepository devolucionRepository;
+    private DevolucionRepository devolucionRepository;
 
     // Obtener todos los devoluciones
-    public List<Devoluciones> obtenerTodosDevoluciones() {
+    public List<Devolucion> obtenerTodosDevoluciones() {
         return devolucionRepository.findAll();
     }
 
     // Obtener devolucion by ID
-    public Optional<Devoluciones> obtenerDevolucionByID(Integer id) {
+    public Optional<Devolucion> obtenerDevolucionByID(Integer id) {
         return devolucionRepository.findById(id);
     }
 
     //Guardar devolucion
-    public Devoluciones guardarDevolucion(Devoluciones usuario) {
-        Devoluciones usuarioGuardar = devolucionRepository.save(usuario);
+    public Devolucion guardarDevolucion(Devolucion usuario) {
+        Devolucion usuarioGuardar = devolucionRepository.save(usuario);
         return usuarioGuardar;
     }
 
     //Actualizar devolucion
-    public boolean actualizarDevolucion(Devoluciones nuevoUsuario) {
-        Optional<Devoluciones> devolucionExistente = devolucionRepository.findById(nuevoUsuario.getId());
+    public boolean actualizarDevolucion(Devolucion nuevoUsuario) {
+        Optional<Devolucion> devolucionExistente = devolucionRepository.findById(nuevoUsuario.getId());
         if (devolucionExistente.isPresent()) {
             devolucionRepository.save(nuevoUsuario);
             return true;

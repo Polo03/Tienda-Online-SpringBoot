@@ -27,9 +27,9 @@ CREATE TABLE Producto (
 CREATE TABLE Compra (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
-    productos TEXT NOT NULL,
+    producto_id INT NOT NULL,
     fecha_compra TEXT NOT NULL,
-    cantidades TEXT NOT NULL,
+    cantidad TEXT NOT NULL,
     precio_compra INT NOT NULL,
 
     -- Definir claves foráneas para relacionar Cliente y Producto
@@ -38,11 +38,11 @@ CREATE TABLE Compra (
 
 CREATE TABLE Devoluciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    producto_id INT NOT NULL,
+    compra_id INT NOT NULL,
     stock INT NOT NULL,
 
     -- Definir claves foráneas
-    FOREIGN KEY (producto_id) REFERENCES Producto(id) ON DELETE CASCADE
+    FOREIGN KEY (compra_id) REFERENCES Compra(id) ON DELETE CASCADE
 );
 
 -- Insertar clientes

@@ -2,9 +2,7 @@ package org.example.tienda_online.Controller;
 
 import jakarta.validation.Valid;
 import org.example.tienda_online.Dto.Compra;
-import org.example.tienda_online.Dto.Producto;
 import org.example.tienda_online.Service.CompraService;
-import org.example.tienda_online.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -47,15 +45,15 @@ public class CompraController {
     // Crear compra
     @PostMapping
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Compra compra) {
-        if(compraService.comprobarStock(compra)) {
-            compraService.quitarStock(compra);
+        //if(compraService.comprobarStock(compra)) {
+        //    compraService.quitarStock(compra);
             Compra compraGuardar = compraService.guardarCompra(compra);
             if (compraGuardar != null)
                 return ResponseEntity.ok("Compra guardado con éxito");
             else
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no guardado");
-        }else
-            return ResponseEntity.ok("Hay algun problema con el stock de algun producto");
+        //}else
+        //    return ResponseEntity.ok("Hay algun problema con el stock de algun producto");
     }
 
     //Actualizar compra

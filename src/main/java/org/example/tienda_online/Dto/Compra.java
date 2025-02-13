@@ -1,46 +1,38 @@
 package org.example.tienda_online.Dto;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "compra")
 public class Compra {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id", nullable = false)
-    @NotNull(message = "EL cliente no puede ser nulo.")
     private Cliente cliente;
 
-    @Lob
-    @Column(name = "productos", nullable = false)
-    @NotNull(message = "No puedes comprar sin productos, es decir, no puede ser nulo")
-    @NotBlank(message = "Los prodcutos no pueden estar en blanco")
-    private String productos;
+    @NotNull
+    @Column(name = "producto_id", nullable = false)
+    private Integer productoId;
 
+    @NotNull
     @Lob
     @Column(name = "fecha_compra", nullable = false)
     private String fechaCompra;
 
+    @NotNull
     @Lob
-    @Column(name = "stock", nullable = false)
-    @NotNull(message = "No puedes comprar sin stock, es decir, no puede ser nulo")
-    @NotBlank(message = "El stock no pueden estar en blanco")
-    private String stock;
+    @Column(name = "cantidad", nullable = false)
+    private String cantidad;
 
+    @NotNull
     @Column(name = "precio_compra", nullable = false)
     private Integer precioCompra;
 
@@ -60,12 +52,12 @@ public class Compra {
         this.cliente = cliente;
     }
 
-    public String getProductos() {
-        return productos;
+    public Integer getProductoId() {
+        return productoId;
     }
 
-    public void setProductos(String productos) {
-        this.productos = productos;
+    public void setProductoId(Integer productoId) {
+        this.productoId = productoId;
     }
 
     public String getFechaCompra() {
@@ -76,12 +68,12 @@ public class Compra {
         this.fechaCompra = fechaCompra;
     }
 
-    public String getStock() {
-        return stock;
+    public String getCantidad() {
+        return cantidad;
     }
 
-    public void setStock(String stock) {
-        this.stock = stock;
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Integer getPrecioCompra() {
