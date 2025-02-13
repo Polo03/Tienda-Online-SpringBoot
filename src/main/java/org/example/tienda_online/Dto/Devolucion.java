@@ -1,22 +1,24 @@
 package org.example.tienda_online.Dto;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "devoluciones")
-public class Devoluciones {
+public class Devolucion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "producto_id", nullable = false)
-    private Producto producto;
+    @JoinColumn(name = "compra_id", nullable = false)
+    private Compra compra;
 
+    @NotNull
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
@@ -28,12 +30,12 @@ public class Devoluciones {
         this.id = id;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
 
     public Integer getStock() {

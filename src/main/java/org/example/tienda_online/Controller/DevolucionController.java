@@ -1,7 +1,7 @@
 package org.example.tienda_online.Controller;
 
 import jakarta.validation.Valid;
-import org.example.tienda_online.Dto.Devoluciones;
+import org.example.tienda_online.Dto.Devolucion;
 import org.example.tienda_online.Service.DevolucionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -23,18 +23,18 @@ public class DevolucionController {
 
     // Obtener todos los usuarios
     @GetMapping
-    public ResponseEntity<List<Devoluciones>> obtenerTodosDevoluciones() {
-        List<Devoluciones> devoluciones = devolucionService.obtenerTodosDevoluciones();
+    public ResponseEntity<List<Devolucion>> obtenerTodosDevoluciones() {
+        List<Devolucion> devoluciones = devolucionService.obtenerTodosDevoluciones();
         return new ResponseEntity<>(devoluciones, HttpStatus.OK);
     }
 
     //Obtener usuario por ID
     @GetMapping("/{id}")
     @Cacheable
-    public ResponseEntity<Optional<Devoluciones>> obtenerDevolucionPorId(@PathVariable Integer id) {
+    public ResponseEntity<Optional<Devolucion>> obtenerDevolucionPorId(@PathVariable Integer id) {
         try{
             Thread.sleep(3000);
-            Optional<Devoluciones> devolucion = devolucionService.obtenerDevolucionByID(id);
+            Optional<Devolucion> devolucion = devolucionService.obtenerDevolucionByID(id);
             return new ResponseEntity<>(devolucion, HttpStatus.OK);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -44,8 +44,8 @@ public class DevolucionController {
 
     // Crear usuario
     @PostMapping
-    public ResponseEntity<String> guardarDevolucion(@RequestBody @Valid Devoluciones devolucion) {
-        Devoluciones devolucionGuardar = devolucionService.guardarDevolucion(devolucion);
+    public ResponseEntity<String> guardarDevolucion(@RequestBody @Valid Devolucion devolucion) {
+        Devolucion devolucionGuardar = devolucionService.guardarDevolucion(devolucion);
         if (devolucionGuardar != null) {
             return ResponseEntity.ok("Devolucion guardado con éxito");
         } else {
@@ -55,7 +55,7 @@ public class DevolucionController {
 
     //Actualizar usuario
     @PutMapping
-    public ResponseEntity<String> actualizarDevolucion(@RequestBody @Valid Devoluciones nuevoDevolucion) {
+    public ResponseEntity<String> actualizarDevolucion(@RequestBody @Valid Devolucion nuevoDevolucion) {
         boolean actualizado = devolucionService.actualizarDevolucion(nuevoDevolucion);
         if (actualizado) {
             return ResponseEntity.ok("Devolucion actualizado con éxito");
