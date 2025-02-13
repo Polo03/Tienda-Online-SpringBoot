@@ -29,11 +29,12 @@ CREATE TABLE Compra (
     cliente_id INT NOT NULL,
     producto_id INT NOT NULL,
     fecha_compra TEXT NOT NULL,
-    cantidad TEXT NOT NULL,
-    precio_compra INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_compra DECIMAL(10, 2) NOT NULL,
 
     -- Definir claves foráneas para relacionar Cliente y Producto
-    FOREIGN KEY (cliente_id) REFERENCES Cliente(id) ON DELETE CASCADE
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id) ON DELETE CASCADE,
+    FOREIGN KEY (producto_id) REFERENCES Producto(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Devoluciones (

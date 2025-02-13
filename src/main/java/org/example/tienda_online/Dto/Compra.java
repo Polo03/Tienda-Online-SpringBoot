@@ -5,36 +5,39 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "compra")
 public class Compra {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     @NotNull
-    @Column(name = "producto_id", nullable = false)
-    private Integer productoId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "producto_id", nullable = false)
+    private Producto producto;
 
-    @NotNull
     @Lob
-    @Column(name = "fecha_compra", nullable = false)
+    @Column(name = "fecha_compra")
     private String fechaCompra;
 
     @NotNull
     @Lob
     @Column(name = "cantidad", nullable = false)
-    private String cantidad;
+    private Integer cantidad;
 
-    @NotNull
-    @Column(name = "precio_compra", nullable = false)
-    private Integer precioCompra;
+    @Column(name = "precio_compra")
+    private BigDecimal precioCompra;
 
     public Integer getId() {
         return id;
@@ -52,12 +55,12 @@ public class Compra {
         this.cliente = cliente;
     }
 
-    public Integer getProductoId() {
-        return productoId;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductoId(Integer productoId) {
-        this.productoId = productoId;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public String getFechaCompra() {
@@ -68,19 +71,19 @@ public class Compra {
         this.fechaCompra = fechaCompra;
     }
 
-    public String getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public Integer getPrecioCompra() {
+    public BigDecimal getPrecioCompra() {
         return precioCompra;
     }
 
-    public void setPrecioCompra(Integer precioCompra) {
+    public void setPrecioCompra(BigDecimal precioCompra) {
         this.precioCompra = precioCompra;
     }
 

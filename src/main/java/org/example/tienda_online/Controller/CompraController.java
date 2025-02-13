@@ -45,15 +45,11 @@ public class CompraController {
     // Crear compra
     @PostMapping
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Compra compra) {
-        //if(compraService.comprobarStock(compra)) {
-        //    compraService.quitarStock(compra);
-            Compra compraGuardar = compraService.guardarCompra(compra);
-            if (compraGuardar != null)
-                return ResponseEntity.ok("Compra guardado con éxito");
-            else
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no guardado");
-        //}else
-        //    return ResponseEntity.ok("Hay algun problema con el stock de algun producto");
+        Compra compraGuardar = compraService.guardarCompra(compra);
+        if (compraGuardar != null)
+            return ResponseEntity.ok("Compra guardado con éxito");
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no guardado");
     }
 
     //Actualizar compra
@@ -78,5 +74,6 @@ public class CompraController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra no encontrado");
         }
     }
+
 
 }
