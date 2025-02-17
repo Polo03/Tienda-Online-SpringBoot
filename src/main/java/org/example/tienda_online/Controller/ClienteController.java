@@ -2,6 +2,7 @@ package org.example.tienda_online.Controller;
 
 import jakarta.validation.Valid;
 import org.example.tienda_online.Dto.Cliente;
+import org.example.tienda_online.Dto.MoldeLogin;
 import org.example.tienda_online.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -77,8 +78,9 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> validarLogin(@RequestBody Cliente cliente){
-        if(clienteService.validarLogin(cliente))
+    public ResponseEntity<String> validarLogin(@RequestBody @Valid MoldeLogin moldeLogin){
+        System.out.println(moldeLogin.toString());
+        if(clienteService.validarLogin(moldeLogin))
             return ResponseEntity.ok("Cliente logueado");
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente no logueado");
