@@ -14,7 +14,7 @@ public class Devolucion {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
@@ -34,5 +34,21 @@ public class Devolucion {
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
+
+     /* JSON a insertar en el postman
+        POST
+    {
+        "compra":{
+            "id": 1
+        }
+    }
+        PUT
+    {
+        "id": 1,
+        "compra":{
+            "id": 1
+        }
+    }
+    */
 
 }

@@ -17,7 +17,7 @@ public class Producto {
     @Column(name = "nombre", nullable = false, length = 100)
     @NotNull(message = "El nombre del producto no puede ser nulo")
     @NotBlank(message = "El nombre del producto no puede estar en blanco")
-    @Pattern(regexp = "^[^\\d]*$", message = "El nombre del producto no puede tener números")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", message = "El nombre del producto no puede tener números")
     @Size(max = 100, message = "El nombre del producto no puede tener más de 100 caracteres.")
     private String nombre;
 
@@ -100,4 +100,22 @@ public class Producto {
                 ", stock=" + stock +
                 '}';
     }
+
+    /* JSON a insertar en el postman
+        POST
+    {
+        "nombre": "Prueba Producto",
+        "descripcion": "Prueba Producto",
+        "precio": 100,
+        "stock": 50
+    }
+        PUT
+    {
+        "id": ID,
+        "nombre": "Prueba Producto",
+        "descripcion": "Prueba Producto",
+        "precio": 100,
+        "stock": 50
+    }
+    */
 }
