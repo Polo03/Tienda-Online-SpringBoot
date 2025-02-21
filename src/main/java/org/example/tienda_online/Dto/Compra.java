@@ -97,4 +97,29 @@ public class Compra {
     public void setDevuelto(String devuelto) {
         this.devuelto = devuelto;
     }
+
+    /* JSON a insertar en el postman
+        POST
+    {
+        {
+        "cliente": {
+            "id": 1,
+        },
+        "producto": {
+            "id": 10,
+        },
+        "cantidad": 17,
+    }
+        PUT
+    {
+        "id": 1,
+        "cliente": {
+            "id": 1,
+        },
+        "producto": {
+            "id": 10,
+        },
+        "cantidad": 17,
+    }
+    */
 }

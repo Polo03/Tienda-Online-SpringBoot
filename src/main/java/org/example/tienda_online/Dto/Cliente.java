@@ -102,4 +102,26 @@ public class Cliente {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
+
+    /* JSON a insertar en el postman
+        POST
+    {
+        "nombre": "nombrePrueba",
+        "apellido": "apellidoPrueba",
+        "nickname": "prueba",
+        "password": "prueba123",
+        "telefono": "123456789",
+        "domicilio": "Calle 123"
+    }
+        PUT
+    {
+        "id": ID,
+        "nombre": "nombrePrueba",
+        "apellido": "apellidoPrueba",
+        "nickname": "prueba",
+        "password": "prueba123",
+        "telefono": "123456789",
+        "domicilio": "Calle 123"
+    }
+    */
 }
