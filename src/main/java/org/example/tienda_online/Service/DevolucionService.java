@@ -33,16 +33,17 @@ public class DevolucionService {
     }
 
     //Guardar devolucion
-    public Devolucion guardarDevolucion(Devolucion devolucion) {
-        Optional<Compra> c = compraService.obtenerCompraByID(devolucion.getCompra().getId());
+    public Devolucion guardarDevolucion(int id) {
+        Optional<Compra> c = compraService.obtenerCompraByID(id);
         Optional<Producto> p = productoService.obtenerProductoByID(c.get().getProducto().getId());
         Producto producto = p.get();
         producto.setStock(producto.getStock()+c.get().getCantidad());
-        System.out.println(producto.toString());
         productoService.actualizarProducto(producto);
         if(c.get().getDevuelto().equals("No")){
             c.get().setDevuelto("Si");
-            Devolucion devolucionGuardar = devolucionRepository.save(devolucion);
+            Devolucion d=new Devolucion();
+            d.setCompra(c.get());
+            Devolucion devolucionGuardar = devolucionRepository.save(d);
             System.out.println(devolucionGuardar);
             return devolucionGuardar;
         }

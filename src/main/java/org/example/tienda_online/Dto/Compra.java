@@ -1,5 +1,6 @@
 package org.example.tienda_online.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
@@ -29,6 +30,7 @@ public class Compra {
 
     @Lob
     @Column(name = "fecha_compra")
+    @JsonIgnore
     private String fechaCompra;
 
     @NotNull
@@ -37,9 +39,11 @@ public class Compra {
     private Integer cantidad;
 
     @Column(name = "precio_compra")
+    @JsonIgnore
     private BigDecimal precioCompra;
 
     @Column(name = "devuelto")
+    @JsonIgnore
     private String devuelto;
 
     public Integer getId() {
