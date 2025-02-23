@@ -21,14 +21,14 @@ public class DevolucionController {
     @Autowired
     private DevolucionService devolucionService;
 
-    // Obtener todos los usuarios
+    // Obtener todos las devoluciones
     @GetMapping
     public ResponseEntity<List<Devolucion>> obtenerTodosDevoluciones() {
         List<Devolucion> devoluciones = devolucionService.obtenerTodosDevoluciones();
         return new ResponseEntity<>(devoluciones, HttpStatus.OK);
     }
 
-    //Obtener usuario por ID
+    //Obtener devolucion por ID
     @GetMapping("/{id}")
     @Cacheable
     public ResponseEntity<Optional<Devolucion>> obtenerDevolucionPorId(@PathVariable Integer id) {
@@ -42,18 +42,18 @@ public class DevolucionController {
 
     }
 
-    // Crear usuario
-    @PostMapping
-    public ResponseEntity<String> guardarDevolucion(@RequestBody @Valid Devolucion devolucion) {
-        Devolucion devolucionGuardar = devolucionService.guardarDevolucion(devolucion);
+    // Crear devolucion
+    @PostMapping("/{id}")
+    public ResponseEntity<String> guardarDevolucion(@PathVariable @Valid int id) {
+        Devolucion devolucionGuardar = devolucionService.guardarDevolucion(id);
         if (devolucionGuardar != null) {
             return ResponseEntity.ok("Devolucion guardada con éxito");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Devolucion no guardada");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La compra con id "+id+" ya ha sido devuelto");
         }
     }
 
-    //Actualizar usuario
+    //Actualizar devolucion
     @PutMapping
     public ResponseEntity<String> actualizarDevolucion(@RequestBody @Valid Devolucion nuevoDevolucion) {
         boolean actualizado = devolucionService.actualizarDevolucion(nuevoDevolucion);
@@ -64,7 +64,7 @@ public class DevolucionController {
         }
     }
 
-    //Eliminar un usuario por ID
+    //Eliminar una devolucion por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarDevolucion(@PathVariable int id) {
         boolean eliminado = devolucionService.eliminarDevolucion(id);
