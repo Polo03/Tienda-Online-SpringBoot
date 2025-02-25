@@ -30,7 +30,6 @@ public class Compra {
 
     @Lob
     @Column(name = "fecha_compra")
-    @JsonIgnore
     private String fechaCompra;
 
     @NotNull
@@ -39,11 +38,9 @@ public class Compra {
     private Integer cantidad;
 
     @Column(name = "precio_compra")
-    @JsonIgnore
     private BigDecimal precioCompra;
 
     @Column(name = "devuelto")
-    @JsonIgnore
     private String devuelto;
 
     public Integer getId() {

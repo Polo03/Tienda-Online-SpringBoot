@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
-    @Query("SELECT p.nombre FROM Producto p Where p.id != :id")
-    List<String> findAllNombresProducto(@Param("id") Integer id);
+    @Query("SELECT p.nombre FROM Producto p")
+    List<String> findAllNombresProducto();
+
+    @Query("SELECT p.nombre FROM Producto p WHERE p.id != :id")
+    List<String> findAllNombresProductoAndId(@Param("id") Integer id);
 }

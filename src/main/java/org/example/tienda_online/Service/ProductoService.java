@@ -61,9 +61,19 @@ public class ProductoService {
             return "Estandar";
     }
 
-    public boolean existeNombreProducto(Producto producto) {
-        List<String> nombreProductos = productoRepository.findAllNombresProducto(producto.getId());
+    public boolean existeNombreProductoInsert(Producto producto) {
+        List<String> nombreProductos = productoRepository.findAllNombresProducto();
         for (String nombreProducto : nombreProductos) {
+            if (nombreProducto.equals(producto.getNombre()))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean existeNombreProductoUpdate(Producto producto) {
+        List<String> nombreProductos = productoRepository.findAllNombresProductoAndId(producto.getId());
+        for (String nombreProducto : nombreProductos) {
+
             if (nombreProducto.equals(producto.getNombre()))
                 return true;
         }
