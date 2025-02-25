@@ -45,7 +45,8 @@ public class ProductoController {
     // Crear producto
     @PostMapping
     public ResponseEntity<String> guardarProducto(@RequestBody @Valid Producto producto) {
-        if(!productoService.existeNombreProducto(producto)) {
+        System.out.println(producto);
+        if(!productoService.existeNombreProductoInsert(producto)) {
             Producto productoGuardar = productoService.guardarProducto(producto);
             if (productoGuardar != null) {
                 return ResponseEntity.ok("Producto guardado con éxito");
@@ -59,7 +60,7 @@ public class ProductoController {
     //Actualizar producto
     @PutMapping
     public ResponseEntity<String> actualizarProducto(@RequestBody @Valid Producto nuevoProducto) {
-        if(!productoService.existeNombreProducto(nuevoProducto)) {
+        if(!productoService.existeNombreProductoUpdate(nuevoProducto)) {
             boolean actualizado = productoService.actualizarProducto(nuevoProducto);
             if (actualizado) {
                 return ResponseEntity.ok("Producto actualizado con éxito");
